@@ -1,45 +1,43 @@
-const input = document.getElementById("searchInput");
-const button = document.getElementById("searchBtn");
-const result = document.getElementById("result");
+// 1. Находим элементы на странице
+const searchInput = document.getElementById("searchInput");
+const searchBtn = document.getElementById("searchBtn");
 const housesContainer = document.getElementById("houses");
-const placeholder = document.getElementById("houses-placeholder");
 
-button.addEventListener("click", () => {
-    const city = input.value.trim();
-
-    // Очистка старого
-    result.textContent = "";
-    housesContainer.innerHTML = "";
-
-    if (city.length === 0) {
-        result.textContent = "Введите город";
-        placeholder.style.display = "block";
+// 2. Функция, которая отрисовывает дома на экране
+function renderHouses(houses) {
+    housesContainer.innerHTML = ""; // Очищаем список перед новым поиском
+    
+    if (houses.length === 0) {
+        housesContainer.innerHTML = "<p>Домов не найдено</p>";
         return;
     }
 
+    houses.forEach(house => {
+        const div = document.createElement("div");
+        div.className = "house-card";
+        div.style = "border: 1px dashed #999; padding: 15px; margin: 10px;";
+        div.innerHTML = `
+            <h4>${house.title}</h4>
+            <p>Город: <b>${house.city}</b></p>
+            <p>Цена: ${house.price} сомони</p>
+        `;
+        housesContainer.appendChild(div);
+    });
+}
+
+// 3. Логика кнопки "Поиск"
+searchBtn.onclick = () => {
+    const city = searchInput.value.trim();
+    
+    // Стучимся к твоему Python серверу
     fetch(`http://127.0.0.1:8000/search?city=${city}`)
         .then(response => response.json())
         .then(data => {
-            placeholder.style.display = "none";
-
-            if (!data.houses || data.houses.length === 0) {
-                result.textContent = "Нет домов для показа";
-                return;
-            }
-
-            data.houses.forEach(house => {
-                const div = document.createElement("div");
-                div.innerHTML = `
-                    <h4>${house.title}</h4>
-                    <p>City: ${house.city}</p>
-                    <p>Price: ${house.price}</p>
-                    <hr>
-                `;
-                housesContainer.appendChild(div);
-            });
+            console.log("Данные от Бэкенда:", data);
+            renderHouses(data.houses); // Передаем список домов в функцию отрисовки
         })
-        .catch(() => {
-            result.textContent = "Ошибка соединения с сервером";
-            placeholder.style.display = "block";
+        .catch(err => {
+            console.error("Ошибка:", err);
+            alert("Сервер не отвечает. Проверь терминал!");
         });
-});
+};

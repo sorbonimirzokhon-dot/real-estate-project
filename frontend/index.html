@@ -1,64 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Real Estate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Недвижимость Таджикистана</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<h1>Real Estate Website</h1>
+    <header>
+        <h1>Веб-сайт по недвижимости</h1>
+    </header>
 
-<header>
-    Header (logo, menu)
-</header>
+    <section id="hero">
+        <h2>Добавить объявление</h2>
+        <div class="add-form">
+            <input type="text" id="newTitle" placeholder="Название (напр. 3-хонага)">
+            <input type="text" id="newCity" placeholder="Город">
+            <input type="number" id="newPrice" placeholder="Цена (сомони)">
+            <button id="addBtn">Опубликовать</button>
+        </div>
+    </section>
 
-<section id="hero">
-    <h2>Find The Place To Live Your Dreams</h2>
+    <section>
+        <h2>Найдите жилье своей мечты</h2>
+        <p>Введите город, чтобы увидеть доступные варианты.</p>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Душанбе или Хуҷанд">
+            <button id="searchBtn">Поиск</button>
+        </div>
+    </section>
 
-    <p>
-        Everything you need about finding your place to live
-        will be here, where it will be easier for you
-    </p>
+    <section>
+        <h3>Результаты поиска:</h3>
+        <div id="houses">
+            <p style="color: #999;">Введите город и нажмите поиск...</p>
+        </div>
+    </section>
 
-    <input id="searchInput" type="text" placeholder="Search location">
-    <button id="searchBtn" type="button">Search</button>
+    <footer>
+        <p>&copy; 2026 Мой проект по недвижимости</p>
+    </footer>
 
-    <!-- Сообщения (ошибки, статус) -->
-    <p id="result"></p>
-</section>
-
-<!-- 🔴 ВАЖНО: ОТДЕЛЬНЫЙ БЛОК ДЛЯ ДОМОВ -->
-<section id="houses-section">
-    <h3>Search Results</h3>
-    <p id="houses-placeholder">Houses will appear here after search</p>
-    <div id="houses"></div>
-</section>
-
-<section>
-    Featured House
-</section>
-
-<section>
-    House Detail
-</section>
-
-<section>
-    Reviews
-</section>
-
-<section>
-    Articles
-</section>
-
-<section>
-    Subscribe
-</section>
-
-<footer>
-    Footer
-</footer>
-
-<script src="main.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
